@@ -8,6 +8,20 @@
 (defparameter *combo* (loop :for x :from 0 :to 99 :collect x))
 (defparameter *start* 50)
 
+(defun normalize-value (value)
+  (cond
+    ((or (> 100 value) (< 100 value))
+     (abs value))
+
+    ((< 99 value)
+     (abs (- value 99)))
+
+    ((> 99 value)
+     (abs (+ value 99)))
+
+    (t
+     value)))
+
 (defun parse-instruction (instruction position)
   (let ((direction (subseq instruction 0 1))
         (value (subseq instruction 1)))
@@ -30,3 +44,15 @@
   (format t "Hello world!~%"))
 
 (test)
+
+(normalize-value (- 50 -18))
+(normalize-value (- 50 20))
+(normalize-value (- 50 98))
+(normalize-value (- 50 45))
+(normalize-value (- 50 110))
+(normalize-value (- 50 -5))
+(normalize-value (- 50 49))
+(normalize-value (- 50 -49))
+(normalize-value (- 50 64))
+(normalize-value (- 50 -32))
+
